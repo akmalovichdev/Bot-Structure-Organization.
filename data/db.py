@@ -24,39 +24,38 @@ def connect():
 
 #########################################################################################################################################################################
 
-def getNowDate():
-    date = datetime.datetime.today().strftime("%d.%m.%Y")
-    return date
+class time:
+    def getNowDate():
+        date = datetime.datetime.today().strftime("%d.%m.%Y")
+        return date
 
-def getNowDateTime():
-    date = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
-    return date
-
-def getUsersExist(user_id):
-    conn = connect()
-    cursor = conn.cursor()
-    cursor.execute(f"SELECT userId FROM users WHERE userId = '{user_id}'")
-    if cursor.fetchone() is None:
-        return False
-    else:
-        return True
-    
-def getAllUsers():
-    conn = connect()
-    cursor = conn.cursor()
-    cursor.execute(f"""SELECT userId FROM users""")
-    row = cursor.fetchall()
-    return row
+    def getNowDateTime():
+        date = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+        return date
 
 #########################################################################################################################################################################
 
-def adduser(userId, userName, userPhone):
-    conn = connect()
-    cursor = conn.cursor(buffered=True)
-    user = [userId, userName, userPhone, getNowDateTime()]
-    cursor.execute(f'''INSERT INTO users(userId, userName, userPhone, joinDate) VALUES(%s,%s,%s,%s)''', user)
-    conn.commit()
+class getAll:
 
+    def users():
+        conn = connect()
+        cursor = conn.cursor()
+        cursor.execute(f"""SELECT userId FROM users""")
+        row = cursor.fetchall()
+        return row
+    
+#########################################################################################################################################################################
+
+class exist:
+    def getUser(user_id):
+        conn = connect()
+        cursor = conn.cursor()
+        cursor.execute(f"SELECT userId FROM users WHERE userId = '{user_id}'")
+        if cursor.fetchone() is None:
+            return False
+        else:
+            return True
+        
 #########################################################################################################################################################################
 
 def select(fields, fields2, table, select):
@@ -70,6 +69,8 @@ def select(fields, fields2, table, select):
     except:
         return False
     
+#########################################################################################################################################################################
+
 def selectConf(conf):
     conn = connect()
     cursor = conn.cursor(buffered=True)
